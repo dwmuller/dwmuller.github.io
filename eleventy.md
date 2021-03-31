@@ -13,7 +13,6 @@ The main things to know:
 - All input files are referred to as "templates" in the docs ...
 - ... because by default they are processed by the ``liquid`` templating engine.
 
-
 # Daily usage
 
 Build the static site from sources, by default the output goes to _site.
@@ -52,6 +51,19 @@ npm install --save-dev @11ty/eleventy
 Add a .gitignore file. You can find templates online for Node.js projects. Or if you created the repo on GitHub, you can add a .gitignore file in GitHub's Web interface, and it will offer templates you can choose from. In any case, add a  line containing ``sites/`` to .gitignore so that eleventy's outputs don't get checked in. 
 
 Now refer to the Daily usage section above.
+
+# Publishing via GitHub pages
+
+There are lots of articles on this topic, but here are important things that tended to be glossed over.
+
+If you're using the ``peaceiris/actions-gh-pages`` package to deploy the built site from a GitHub Action, note that it
+"deploys" the build results by checking the site into the gh-pages branch (by default). This is fine for a
+site associated with a project, but can be surprising for a user or organization GitHub pages project, which
+by default publishes the ``main`` branch. You can change the branch that is published in the repository's
+settings. Change it to gh-pages.
+
+Since you're not using Jekyll (the static site generator directly supported by GitHub), it may be a good idea to
+add a ``.nojekyll`` flag file to your project. This prevents some behavior/activity that you don't need.
 
 # References
 
