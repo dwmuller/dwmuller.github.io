@@ -3,8 +3,10 @@ tags:
     - tools
     - site-tools
 title: Eleventy (11ty) Static Site Generator
+layout: layout.html
 ---
 # {{ title }}
+
 This site is built using [Eleventy](https://www.11ty.dev/). I chose it 
 because it uses javascript, which I want to learn better, and it takes
 a minimalist approach, allowing me to start with a very simple site setup.
