@@ -7,7 +7,7 @@ a minimalist approach, allowing me to start with a very simple site setup.</p>
 <li>All input files are referred to as &quot;templates&quot; in the docs ...</li>
 <li>... because by default they are processed by the <code>liquid</code> templating engine.</li>
 </ul>
-<h1>Daily usage</h1>
+<h2>Daily usage</h2>
 <p>Build the static site from sources, by default the output goes to _site.</p>
 <pre><code>npx @11ty/eleventy
 </code></pre>
@@ -15,7 +15,7 @@ a minimalist approach, allowing me to start with a very simple site setup.</p>
 <pre><code>npx @11ty/eleventy --serve
 </code></pre>
 <p>TODO: The eleventy site suggests using npx instead of npm, haven't investigated why.</p>
-<h1>Installation</h1>
+<h2>Installation</h2>
 <p>You need Node.js. See (my notes)[nodejs] on installing it.</p>
 <p>Install npm.</p>
 <pre><code>npm install -g npm
@@ -29,20 +29,14 @@ a minimalist approach, allowing me to start with a very simple site setup.</p>
 </code></pre>
 <p>Add a .gitignore file. You can find templates online for Node.js projects. Or if you created the repo on GitHub, you can add a .gitignore file in GitHub's Web interface, and it will offer templates you can choose from. In any case, add a  line containing <code>sites/</code> to .gitignore so that eleventy's outputs don't get checked in.</p>
 <p>Now refer to the Daily usage section above.</p>
-<h1>Publishing via GitHub pages</h1>
-<p>There are lots of articles on this topic, but here are important things that tended to be glossed over.</p>
-<p>If you're using the <code>peaceiris/actions-gh-pages</code> package to deploy the built site from a GitHub Action, note that it
-&quot;deploys&quot; the build results by checking the site into the gh-pages branch (by default). This is fine for a
-site associated with a project, but can be surprising for a user or organization GitHub pages project, which
-by default publishes the <code>main</code> branch. You can change the branch that is published in the repository's
-settings. Change it to gh-pages.</p>
-<p>Since you're not using Jekyll (the static site generator directly supported by GitHub), it may be a good idea to
-add a <code>.nojekyll</code> flag file to your project. This prevents some behavior/activity that you don't need.</p>
-<h1>References</h1>
+<h2>See also</h2>
+<ul>
+<li><a href="../publish-github-pages/">Publishing GitHub Pages</a></li>
+</ul>
+<h2>References</h2>
 <ul>
 <li><a href="https://www.11ty.dev/">Eleventy</a></li>
 <li><a href="https://www.zachleat.com/web/eleventy-tutorial-level-1/">Eleventy Tutorial Level 1</a> and <a href="https://www.zachleat.com/web/eleventy-tutorial-level-2/">Level 2</a>: A gentle intro.</li>
 <li><a href="https://rphunt.github.io/eleventy-walkthrough/">Eleventy Walkthrough</a></li>
-<li><a href="https://www.rockyourcode.com/how-to-deploy-eleventy-to-github-pages-with-github-actions/">How to Deploy Eleventy to GitHub Pages With GitHub Actions</a></li>
-<li><a href="https://avinash.com.np/2020/05/18/build-eleventy-using-github-actions-and-github-pages/">Build Eleventy Using GitHub Actions and GitHub Pages</a></li>
+<li><a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>: Another templating language, implemented in JavaScript. Seems to be a popular alternative to Eleventy's default, Liquid.</li>
 </ul>
