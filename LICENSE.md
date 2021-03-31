@@ -1,6 +1,4 @@
----
-title: Site Content License
----
+# Site Content License
 See the [canonical license source](https://creativecommons.org/licenses/by/4.0/), which includes a human-readable summary.
 
 Attribution 4.0 International

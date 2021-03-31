@@ -27,4 +27,7 @@ So let's start with the notes that I reference while working on this site:
 - [{{ post.data.title|urlencode }}]({{ post.url }})
 {%- endfor %}
 
+# Misc
 
+- [LICENSE](LICENSE)
+- [README](README)
