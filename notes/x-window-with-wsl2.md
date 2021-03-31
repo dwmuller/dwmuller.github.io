@@ -15,7 +15,7 @@ The last step is arguably the hardest. It looks like this:
 ```
 export DISPLAY=$(/sbin/ip route | awk '/default/ { print $3 }'):0
 ```
-For more information about that, see [WSL2 Networking](wsl2-networking).
+For more information about that, see [WSL2 Networking](../wsl2-networking).
 
 Run VcXsrv, choose no startup program. You get the most seamless experience by choosing multiple windows. Now just run the X clients on Linux from a shell window, and they should display on your Windows desktop.
 

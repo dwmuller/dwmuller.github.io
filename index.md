@@ -10,24 +10,31 @@ I've been programming since the early eighties, and the scale of information tha
 
 Occasionally I'll put real work into an article, especially if I found the topic difficult to research or summarize. I often provide references to my most significant sources.
 
-There's not much here at the moment, but I'm still migrating notes from other locations.
+There's not much here at the moment, but I'm still migrating notes from other locations. There's more [to do](TODO).
 
 So let's start with the notes that I reference while working on this site:
+
+## Site Tools
 {%- for post in collections.site-tools %}
 - [{{ post.data.title|urlencode }}]({{ post.url }})
 {%- endfor %}
 
-# Tools
+## Tools
 {%- for post in collections.tools %}
 - [{{ post.data.title|urlencode  }}]({{ post.url }})
 {%- endfor %}
 
-# Windows Configuration
+## Techniques
+{%- for post in collections.techniques %}
+- [{{ post.data.title|urlencode  }}]({{ post.url }})
+{%- endfor %}
+
+## Windows Configuration
 {%- for post in collections.winconfig %}
 - [{{ post.data.title|urlencode }}]({{ post.url }})
 {%- endfor %}
 
-# Misc
+## Misc
 
 - [LICENSE](LICENSE)
 - [README](README)
