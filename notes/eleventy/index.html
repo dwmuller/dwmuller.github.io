@@ -1,4 +1,18 @@
-<h1>Eleventy (11ty) Static Site Generator</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eleventy (11ty) Static Site Generator</title>
+        <link rel="stylesheet" href="/styles/style.css" />
+    </head>
+    <body>
+        <header>
+    <div style="float: left"><a href='/'>Home</a></div>
+    <div style="float: right">GitHub Pages</div>
+    <div style="margin: 0 auto; width: 200px;">Muller's Memoranda</div>
+</header>
+<hr>
+<main>
+    <h1>Eleventy (11ty) Static Site Generator</h1>
 <p>This site is built using <a href="https://www.11ty.dev/">Eleventy</a>. I chose it
 because it uses javascript, which I want to learn better, and it takes
 a minimalist approach, allowing me to start with a very simple site setup.</p>
@@ -8,13 +22,17 @@ a minimalist approach, allowing me to start with a very simple site setup.</p>
 <li>... because by default they are processed by the <code>liquid</code> templating engine.</li>
 </ul>
 <h2>Daily usage</h2>
+<p>I do my Node work in a WSL2 VM. I open a shell, cd to my local clone of this site, and run <code>code .</code> to start a
+Visual Studio Code instance. Then, in that same shell, I run <code>npx @11ty/eleventy --serve</code> and leave that running.</p>
+<p>Now I can point my browser (on Windows, usually) at http://localhost:8080 to view the local version of the site. As I save edited and added files, the site updates automatically, I just have to refresh pages in the browser.</p>
+<p>Occasionally, check stuff in, then git push to update the public site. GitHub Actions automatically process the changes.</p>
 <p>Build the static site from sources, by default the output goes to _site.</p>
 <pre><code>npx @11ty/eleventy
 </code></pre>
 <p>To serve the project up locally, in a way that will automatically update as you modify the source files:</p>
 <pre><code>npx @11ty/eleventy --serve
 </code></pre>
-<p>TODO: The eleventy site suggests using npx instead of npm, haven't investigated why.</p>
+<p>(The eleventy site suggests using npx instead of npm, investigate why.)</p>
 <h2>Installation</h2>
 <p>You need Node.js. See (my notes)[nodejs] on installing it.</p>
 <p>Install npm.</p>
@@ -40,3 +58,7 @@ a minimalist approach, allowing me to start with a very simple site setup.</p>
 <li><a href="https://rphunt.github.io/eleventy-walkthrough/">Eleventy Walkthrough</a></li>
 <li><a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>: Another templating language, implemented in JavaScript. Seems to be a popular alternative to Eleventy's default, Liquid.</li>
 </ul>
+
+</main>
+    </body>
+</html>

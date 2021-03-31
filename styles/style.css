@@ -1,0 +1,21 @@
+
+* {
+    font-family: 'Segoe Marker', 'DejaVu', sans-serif;
+}
+code {
+    font-family: 'Lucida Console', monospace;
+}
+
+body {
+    background: lavender url(bg-graphic.png) 10px 10px repeat-x fixed;
+}
+
+title {
+    background: lightsalmon url(bg-graphic.png) 10px 10px repeat-x fixed;
+    color: darkblue;
+}
+header {
+    border: 5px solid darkblue;
+    padding: 10px;
+}
+
