@@ -4,8 +4,9 @@
 <html>
     <head>
         <title>{{ title }}</title>
+        <link rel="stylesheet" href="/styles/style.css" />
     </head>
     <body>
-        {{ content }}
+        {{ content | safe }}
     </body>
 </html>

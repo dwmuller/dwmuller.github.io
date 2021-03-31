@@ -3,6 +3,7 @@ tags:
     - techniques
     - site-tools
 title: How to Publish GitHub Pages Using Actions
+layout: note.html
 ---
 # {{ title }}
 There are lots of articles on this topic, but here are important things that tend to be omitted from other articles.

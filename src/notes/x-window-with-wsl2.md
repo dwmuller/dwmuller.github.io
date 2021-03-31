@@ -3,6 +3,7 @@ tags:
     - winconfig
     - wsl
 title: X Window with WSL2
+layout: note.html
 ---
 # {{ title }}
 

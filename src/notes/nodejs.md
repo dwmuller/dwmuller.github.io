@@ -1,6 +1,7 @@
 ---
 tags: tools
 title: Notes on Node.js
+layout: note.html
 ---
 # {{ title }}
 

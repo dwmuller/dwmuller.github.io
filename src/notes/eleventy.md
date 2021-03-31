@@ -3,7 +3,7 @@ tags:
     - tools
     - site-tools
 title: Eleventy (11ty) Static Site Generator
-layout: layout.html
+layout: note.html
 ---
 # {{ title }}
 

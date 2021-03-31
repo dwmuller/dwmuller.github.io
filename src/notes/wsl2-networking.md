@@ -3,6 +3,7 @@ tags:
     - winconfig
     - wsl
 title: Notes on WSL2 Networking 
+layout: note.html
 ---
 # {{ title }}
 

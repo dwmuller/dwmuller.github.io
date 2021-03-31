@@ -1,6 +1,7 @@
 ---
 tags: winconfig
 title: Symbolic Links on Windows
+layout: note.html
 ---
 # {{ title }}
 The lack of symbolic links on Windows has been a thorn in the side of every Unix-savvy developer for decades. When similar functionality did finally appear, it was in limited forms. This is finally fixed in Windows 10, but you have to change some settings to get it to work. Do this only on machines you use for development; it is not recommended on other machines. (I'm not sure why that is, but it may have to do with behaviors other than the symlinks.)

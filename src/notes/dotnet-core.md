@@ -3,6 +3,7 @@ tags:
     - dotnet
     - tools
 title: .NET Core
+layout: note.html
 ---
 # {{ title }}
 
