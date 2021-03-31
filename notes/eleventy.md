@@ -15,6 +15,13 @@ The main things to know:
 
 ## Daily usage
 
+I do my Node work in a WSL2 VM. I open a shell, cd to my local clone of this site, and run ``code .`` to start a 
+Visual Studio Code instance. Then, in that same shell, I run ``npx @11ty/eleventy --serve`` and leave that running.
+
+Now I can point my browser (on Windows, usually) at http://localhost:8080 to view the local version of the site. As I save edited and added files, the site updates automatically, I just have to refresh pages in the browser. 
+
+Occasionally, check stuff in, then git push to update the public site. GitHub Actions automatically process the changes.
+
 Build the static site from sources, by default the output goes to _site.
 ```
 npx @11ty/eleventy
@@ -25,7 +32,7 @@ To serve the project up locally, in a way that will automatically update as you 
 npx @11ty/eleventy --serve
 ```
 
-TODO: The eleventy site suggests using npx instead of npm, haven't investigated why.
+(The eleventy site suggests using npx instead of npm, investigate why.)
 
 ## Installation
 
