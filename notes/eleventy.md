@@ -67,7 +67,9 @@ add a ``.nojekyll`` flag file to your project. This prevents some behavior/activ
 
 # References
 
-* [Eleventy](https://www.11ty.dev/)
-* [Eleventy Tutorial Level 1](https://www.zachleat.com/web/eleventy-tutorial-level-1/) and [Level 2](https://www.zachleat.com/web/eleventy-tutorial-level-2/)- A gentle intro.
-* [How to Deploy Eleventy to GitHub Pages With GitHub Actions](https://www.rockyourcode.com/how-to-deploy-eleventy-to-github-pages-with-github-actions/)
+- [Eleventy](https://www.11ty.dev/)
+- [Eleventy Tutorial Level 1](https://www.zachleat.com/web/eleventy-tutorial-level-1/) and [Level 2](https://www.zachleat.com/web/eleventy-tutorial-level-2/): A gentle intro.
+- [Eleventy Walkthrough](https://rphunt.github.io/eleventy-walkthrough/)
+- [How to Deploy Eleventy to GitHub Pages With GitHub Actions](https://www.rockyourcode.com/how-to-deploy-eleventy-to-github-pages-with-github-actions/)
+- [Build Eleventy Using GitHub Actions and GitHub Pages](https://avinash.com.np/2020/05/18/build-eleventy-using-github-actions-and-github-pages/)
 
