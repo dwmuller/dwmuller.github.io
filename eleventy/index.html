@@ -1,0 +1,37 @@
+<h1>Eleventy (11ty) Static Site Generator</h1>
+<p>This site is built using <a href="https://www.11ty.dev/">Eleventy</a>. I chose it
+because it uses javascript, which I want to learn better, and it takes
+a minimalist approach, allowing me to start with a very simple site setup.</p>
+<p>The main things to know:</p>
+<ul>
+<li>All input files are referred to as &quot;templates&quot; in the docs ...</li>
+<li>... because by default they are processed by the <code>liquid</code> templating engine.</li>
+</ul>
+<h1>Daily usage</h1>
+<p>Build the static site from sources, by default the output goes to _site.</p>
+<pre><code>npx @11ty/eleventy
+</code></pre>
+<p>To serve the project up locally, in a way that will automatically update as you modify the source files:</p>
+<pre><code>npx @11ty/eleventy --serve
+</code></pre>
+<p>TODO: The eleventy site suggests using npx instead of npm, haven't investigated why.</p>
+<h1>Installation</h1>
+<p>You need Node.js. See (my notes)[nodejs] on installing it.</p>
+<p>Install npm.</p>
+<pre><code>npm install -g npm
+</code></pre>
+<p>If you're working on an existing eleventy project, clone it to a local repo and cd into it. Run <code>npm install</code> to install all the project's dependencies. You're done.</p>
+<p>If you are setting up a new project, create a new repo, cd into it, and initialize it as a Node.js project:</p>
+<pre><code>npm init -y
+</code></pre>
+<p>Install Eleventy in this project, as a tool that's needed only for development (not production):</p>
+<pre><code>npm install --save-dev @11ty/eleventy
+</code></pre>
+<p>Add a .gitignore file. You can find templates online for Node.js projects. Or if you created the repo on GitHub, you can add a .gitignore file in GitHub's Web interface, and it will offer templates you can choose from. In any case, add a  line containing <code>sites/</code> to .gitignore so that eleventy's outputs don't get checked in.</p>
+<p>Now refer to the Daily usage section above.</p>
+<h1>References</h1>
+<ul>
+<li><a href="https://www.11ty.dev/">Eleventy</a></li>
+<li><a href="https://www.zachleat.com/web/eleventy-tutorial-level-1/">Eleventy Tutorial Level 1</a> and <a href="https://www.zachleat.com/web/eleventy-tutorial-level-2/">Level 2</a>- A gentle intro.</li>
+<li><a href="https://www.rockyourcode.com/how-to-deploy-eleventy-to-github-pages-with-github-actions/">How to Deploy Eleventy to GitHub Pages With GitHub Actions</a></li>
+</ul>
