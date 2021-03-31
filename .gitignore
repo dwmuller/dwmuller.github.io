@@ -1,3 +1,6 @@
+# Generated site (Eleventy output)
+_site/
+
 # Logs
 logs
 *.log
