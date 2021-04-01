@@ -34,7 +34,7 @@ To serve the project up locally, in a way that will automatically update as you 
 npx @11ty/eleventy --serve
 ```
 
-(The eleventy site suggests using npx instead of npm, investigate why.)
+(``npx`` is (nearly) an alias for ```npm exec```)
 
 ## Installation
 
