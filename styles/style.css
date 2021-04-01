@@ -7,15 +7,14 @@ code {
 }
 
 body {
-    background: lavender url(bg-graphic.png) 10px 10px repeat-x fixed;
+    background: lavender;
 }
 
-title {
-    background: lightsalmon url(bg-graphic.png) 10px 10px repeat-x fixed;
-    color: darkblue;
-}
 header {
-    border: 5px solid darkblue;
-    padding: 10px;
+    font-size: 2rem;
+    background: purple;
+    color: whitesmoke;
+    border: 0.5rem solid rgb(199, 121, 199);
+    padding: 1rem;
 }
 
