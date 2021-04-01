@@ -2,6 +2,7 @@
 tags: meta
 title: Muller's Memoranda
 layout: base.html
+repo_site: https://github.com/dwmuller/dwmuller.github.io
 ---
 # {{ title }}
 
@@ -15,7 +16,7 @@ There's not much here at the moment, but I'm still migrating notes from other lo
 
 ## Site Tools
 Notes relevant to building and maintaining this site.
-- [The GitHub repository for this site](https://github.com/dwmuller/dwmuller.github.io)
+- [The GitHub repository for this site]({{ repo_site }})
 {%- for post in collections.site-tools %}
 - [{{ post.data.title|urlencode }}]({{ post.url }})
 {%- endfor %}
@@ -37,5 +38,5 @@ Notes relevant to building and maintaining this site.
 
 ## Misc
 
-- [LICENSE](LICENSE)
-- [README](README)
+- [LICENSE]({{ repo_site }}/blob/main/LICENSE.md)
+- [README]({{ repo_site }}/blob/main/README.md)
