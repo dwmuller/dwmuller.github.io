@@ -14,7 +14,7 @@ Once you're using a password vault that you trust, especially one that integrate
 
 There are many online password vaults that are easy to use and either free or relatively inexpensive: Bitwarden, Dashlane, Keeper, LastPass, and 1Password, to name just a few. If you are comfortable being locked into a single Web browser, you can also use the password vault built into it -- Chrome and Firefox both have this feature, and if you have a Google or Mozilla account, respectively, you the vault can be synchronized across your devices.
 
-If you crave more flexibilty and features, and are comfortable with more complexity in setup and slight more complexity in daily use, [KeePass](https://keepass.info/) is a powerful and flexible free alternative for Windows. It's what we use in our household. Unlike the online password services mentioned earlier, KeePass is file-based. The files are strongly encrypted, and if you use a good password (or other key mechanism), then there is little risk of a file being cracked. We use the [KeeAnywhere](https://keeanywhere.de/) plugin to easily save password files in the cloud, and this lets us share our vault across devices. It works with most of the common cloud storage providers. (See their site.) On our phones, we use [Keepass2Android](https://play.google.com/store/apps/details?id=keepass2android.keepass2android&hl=en_US&gl=US), a KeePass-compatible Android app. I believe there are KeePass-compatible programs for Apple devices as well. (Happy to add more info on this if someone sends me specific positive personal recommendations.)
+If you crave more flexibilty and features, and are comfortable with more complexity in setup and slight more complexity in daily use, [KeePass](https://keepass.info/) is a powerful and flexible free alternative for Windows. It's what we use in our household. Unlike the online password services mentioned earlier, KeePass is file-based. The files are strongly encrypted, and if you use a good password (or other key mechanism), then there is little risk of a file being cracked. We use the [KeeAnywhere](https://keeanywhere.de/) plugin to easily save password files in the cloud, and this lets us share our vault across devices. It works with most of the common cloud storage providers. (See their site.) On our phones, we use [Keepass2Android](https://play.google.com/store/apps/details?id=keepass2android.keepass2android), a KeePass-compatible Android app. I believe there are KeePass-compatible programs for Apple devices as well. (Happy to add more info on this if someone sends me specific positive personal recommendations.)
 
 Following are some things to consider if you use KeePass, as well as tips that leverage its advanced features or plugins.
 
@@ -50,18 +50,25 @@ I use KeePass's built-in password generator to generate a list of password strin
 
 I also use properties for a few other things, e.g. associating a Sneakemail address with an account (if the email address isn't used the user name already). Sneakemail is another whole topic, though ...
 
-## Multi-Factor Authenticationm (MFA) Time-based One Time Passwords (TOTP)
+## Multi-Factor Authentication (MFA) Time-based One Time Passwords (TOTP)
 
-You know what these are, right? The numeric codes generated for you, usually by a phone app, that change over time, and used as a second factor when logging into something, for extra security. These are great!
+MFA! TOTP! Gotta love the welter of additional acronyms that the security field bestows on us.
 
-KeePass has some built-in support for TOTP codes (and other kinds of one-time-passwords, I think). Now, letting KeePass generated these for you will bother some people. It does one of the intents of MFA, which is to present multiple factors of different kinds - something you know (a password), something you have (a phone that generate TOTP codes, or a hardware security key), something you are (biometric data like a fingerprint or face). But to be honest, these categories are bit of a chimera. They are all ultimately data that can be intercepted and possibly stored.
+You know what TOTPs are, right? They're the numeric codes that are generated for you by a phone app like [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2), which change over time. They are used as a second factor when logging into something, for extra security. They're a great enhancement to the security of an account.
 
-So, given that I am comfortable with the security offered by KeePass and the way that I use it, I am OK with using it to generate TOTP codes for me. I won't go into the details of how it's done here. It's a little arcane, really. But the [KeePassOTC](https://github.com/Rookiestyle/KeePassOTP) plugin adds some extra UI to make it really easy. Take a look at that site.
+KeePass has some built-in support for TOTP codes (and other kinds of one-time-passwords, I think). You can store the TOTP seed (which is what is encoded in those QR codes that you scan) in an entry along with the password, and KeePass knows how to generate the codes from that.
+
+Now, letting KeePass generated these for you will bother some people. It does violate one of the intents of MFA, which is to present multiple factors of different kinds - something you know (a password), something you have (a phone that generate TOTP codes, or a hardware security key), something you are (biometric data like a fingerprint or face). By keeping the TOTP key alongside your password in KeePass, you've reduced it to another thing you know. Or is it a thing you have? Because, like, your randomly-generated password isn't really a thing you know, either. It's a thing you have, in your KeePass database.
+
+As you can see, these categories are a bit of a chimera. They are all ultimately data that can be stored and possibly intercepted. TOTP still adds security, because even if your password is somehow intercepted, or stolen from a service provider (which really shouldn't be possible if they're doing things right, but it *happens all the time*), a hacker still won't have the TOTP seed, which never leaves your KeePass database.
+
+So, given that I am comfortable with the security offered by the encrypted KeePass database and how I use it, I am OK with using it to generate TOTP codes for me. I won't go into the details of how it's done here. It's a little arcane, really. But the [KeePassOTC](https://github.com/Rookiestyle/KeePassOTP) plugin adds some extra UI to make it really easy. Take a look at that site.
 
 Note that retrieving generated codes is awkward in Keepass2Android, but possible.
 
-
 ## SSH Keys
 
-This is a feature that I, as a software developer, absolutely love. I can keep all my SSH keys in KeePass, and serve them to programs using the SSH agent mechanism. This is facilitated by the [KeeAgent](https://lechnology.com/software/keeagent/) plugin. For details, see my note on [Managing SSH Keys](/notes/managing-ssh-keys/).
+This is a feature that I, as a software developer, absolutely love. I can keep all my SSH keys in KeePass, and serve them to programs using the SSH agent mechanism. This is facilitated by the [KeeAgent](https://lechnology.com/software/keeagent/) plugin.
+
+For details, see my note on [Managing SSH Keys](/notes/managing-ssh-keys/).
 
