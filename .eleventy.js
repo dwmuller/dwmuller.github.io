@@ -6,6 +6,14 @@ module.exports = function(eleventyConfig) {
     // Ditto for images.
     eleventyConfig.addPassthroughCopy('src/assets');
 
+    // Markdown plugins.
+    let markdownIt = require("markdown-it");
+    let options = {
+        html: true
+    };
+    let markdownLib = markdownIt(options).use(require("markdown-it-footnote"));
+    eleventyConfig.setLibrary("md", markdownLib);
+
     return {
         dir: {
             input: "src"
