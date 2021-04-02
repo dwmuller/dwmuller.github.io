@@ -34,7 +34,7 @@ To serve the project up locally, in a way that will automatically update as you 
 npx @11ty/eleventy --serve
 ```
 
-(``npx`` is (nearly) an alias for ```npm exec```)
+(``npx`` is (nearly) an alias for ```npm exec```.)
 
 ## Installation
 
@@ -70,4 +70,5 @@ Now refer to the Daily usage section above.
 - [Eleventy Tutorial Level 1](https://www.zachleat.com/web/eleventy-tutorial-level-1/) and [Level 2](https://www.zachleat.com/web/eleventy-tutorial-level-2/): A gentle intro.
 - [Eleventy Walkthrough](https://rphunt.github.io/eleventy-walkthrough/)
 - [Nunjucks](https://mozilla.github.io/nunjucks/): Another templating language, implemented in JavaScript. Seems to be a popular alternative to Eleventy's default, Liquid.
+- [Inline PostCSS generated with Eleventy](https://jouni.kantola.se/blog/2020-03-15/inline-postcss-generated-css-with-11ty/) - Interesting technique.
 
