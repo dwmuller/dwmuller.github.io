@@ -36,13 +36,18 @@ Turn on KeeAgent's Cygwin compatible socket, and set <code>SSH_AUTH_SOCK=</code>
 <p>Note that the built-in OpenSSH software in Windows 10 is badly out of date, and I couldn't get it to work with KeeAgent.</p>
 <p>Turn on KeeAgent's Cygwin compatible socket, and set <code>SSH_AUTH_SOCK=</code><em>path-to-your-socket</em>.</p>
 <h2>SSH in WSL2</h2>
+<p>Tested on Windows 10 Pro, version 20H2, OS build 19042.870.</p>
 <p>Turn on KeeAgent's experimental &quot;Windows OpenSSH&quot; feature. This listens on a socket that is supposedly compatible with Microsoft's conventions for OpenSSH. You then need software that runs in WSL2 to pipe requests to that socket. This is done using a combination of socal (which you may have to install first using your package manager) and npiprelay.</p>
 <p>See <a href="https://gist.github.com/strarsis/e533f4bca5ae158481bbe53185848d49">this how-to article</a> for details.</p>
 <p>Based on that information, I have things working pretty trouble-free in my environments. I created <a href="https://github.com/dwmuller/dotfiles/blob/main/bin/wsl/wsl-ssh-agent">a Bash script</a> that can help manage the process in WSL2 that does the forwarding.</p>
 <h2>Making It Easy</h2>
-<p>I have some shell code that gets run on each login in all of the environments I mentioned here, which sets up SSH_AUTH_SOCK appropriately. <a href="https://github.com/dwmuller/dotfiles/blob/main/shell/external.sh">This file</a> gets sourced by my .bashrc script.</p>
+<p>I have some shell code that gets run on each login in all of the environments I mentioned here, which sets up <code>SSH_AUTH_SOCK</code> appropriately. Look for the mentions of <code>SSH_AUTH_SOCK</code> in <a href="https://github.com/dwmuller/dotfiles/blob/main/shell/external.sh">this file</a>, which gets sourced by my .bashrc script.</p>
+<p>You may also want to consider using <a href="https://github.com/anishathalye/dotbot">Dotbot</a> to manage your dotfiles for all your Linux-like work environments, like my <a href="https://github.com/dwmuller/dotfiles/">dotfiles</a> does.</p>
 <p>Here's an example of what the KeeAgent configuration should look like:</p>
 <p><img src="/assets/keeagent-settings.png" alt="KeeAgent settings"></p>
+<h2>Miscellany</h2>
+<p>I tried, and failed, to get the &quot;official&quot; Microsoft <code>win32-openssh</code> chocolatey package to work with KeeAgent. This may have been my fault, I don't know.</p>
+<p>I described above how to get this to work with WSL2. If you use WSL1, a different solution, which I have not tested, is required. See <a href="https://github.com/rupor-github/wsl-ssh-agent">wsl-ssh-agent</a>.</p>
 
 </main>
     </body>
