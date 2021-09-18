@@ -30,19 +30,19 @@ Another strategy might be to keep a backup copy of your vault file somewhere oth
 
 ## Browser Integration
 
-Most commercial password vaults come with browser plug-ins that can automatically enter credentials on Web sites for you. This is an important security feature! The plug-in only offer sthe credentials if the site's address matches the entry in the vault. If someone tricks you into visiting a phishing site (and that can happen to *any* of us), the address won't match, and the credentials won't be offered. You should pay attention when your vault software behaves unexpectedly like this!
+Most commercial password vaults come with browser plug-ins that can automatically enter credentials on Web sites for you. This is an important security feature! The plug-in only offers the credentials if the site's address matches the entry in the vault. If someone tricks you into visiting a phishing site (and that can happen to *any* of us), the address won't match, and the credentials won't be offered. You should pay attention when your vault software behaves unexpectedly like this!
 
-There are no "official" plug-ins with KeePass, but there are a bunch to choose from. Search for KeePass among the plugins available for your particular browser. I mostly use [Kee](https://www.kee.pm/) with Firefox - but be aware that their software occasionally advertises their paid Kee Vault service to you. (This is an online password vault based on KeePass, which might be interesting if you don't want to deal with the cloud provider considerations mentioned in the previous section.)
+KeePass doesn't come with a single "official" browser plug-in, but there are several to choose from, built by third parties. Search for KeePass among the plugins available for your particular browser. I mostly use [Kee](https://www.kee.pm/) with Firefox - but be aware that their software occasionally advertises their paid Kee Vault service to you. (This is an online password vault based on KeePass, which might be interesting if you don't want to deal with the cloud provider considerations mentioned in the previous section.)
 
 ## Sharing is Caring
 
 Some online providers may provide family accounts with separate logins for family members -- I really haven't looked to see if they offer this feature at price points acceptable for non-corporate use. (I know that some of them have corporate offerings that definitely have this feature, e.g. Keeper.)
 
-With KeePass, if you want to share your vault with family members, you will *have* to share your vault password, and you will have to share the cloud file between family members. That could be done by sharing a cloud storage account (which could be very inconvenient with commonly-used logins like Microsft or Google), or via file sharing, if the cloud storage provider supports that. I know that it's pretty easy with Google, and a little harder with OneDrive, due to limitations in KeeAnywhere. ^[I submitted a pull request for KeeAnywhere which partially fixes the problem with shared folders. As of this writing, it has been accepted but not yet released. (2021-03-31)]
+With KeePass, if you want to share your vault with family members, you will *have* to share your vault password, and you will have to share the cloud file between family members. That could be done by sharing a cloud storage account (which could be very inconvenient with commonly-used logins like Microsft or Google), or via file sharing, if the cloud storage provider supports that. I know that it's pretty easy with Google, and a little harder with OneDrive, due to limitations in KeeAnywhere. ^[I submitted a pull request for KeeAnywhere which partially fixes the problem with shared folders. As of this writing, it has been accepted but not yet released. (2021-09-18)]
 
 KeePass works like most file-based desktop apps. Changes you make are kept in memory until you save the file. But sharing is still facilitated by excellent merge functionality, which is offered when you save a file and KeePass notices that the saved version was changed since you last opened or saved. Just make sure that all your users know to choose the Merge option when saving, and not the Overwrite option.
 
-By the way, this is why I would *not* recommend using KeePass as a corporate solution to sharing passwords. If you have more than a few users, this becomes unwieldy and scary. And although KeePass keeps a nice history log attached to each entry, it has no way of distinguishing different users for auditing purpose - a feature that a corporate solution absolutely must have.
+By the way, this is why I would *not* recommend using KeePass as a corporate solution to sharing passwords. If you have more than a few users, this becomes unwieldy and error-prone. And although KeePass keeps a nice history log attached to each entry, it has no way of distinguishing different users for auditing purpose - a feature that a corporate solution absolutely must have.
 
 ## "Security Questions"
 
@@ -52,7 +52,7 @@ When a Web site insists on these, I treat them like additional passwords. KeePas
 
 I use KeePass's built-in password generator to generate a list of password strings. Then I use these as answers to the security questions. I store each as a secure property value, with the question itself as the keyword string.
 
-I also use properties for a few other things, e.g. associating a Sneakemail address with an account (if the email address isn't used the user name already). Sneakemail is another whole topic, though ...
+I also use properties for a few other things, e.g. associating a Sneakemail address with an account (if the email address isn't used as the user name already). Sneakemail is another whole topic, though ...
 
 ## Multi-Factor Authentication (MFA) Time-based One Time Passwords (TOTP)
 
@@ -64,7 +64,7 @@ KeePass has some built-in support for TOTP codes (and other kinds of one-time-pa
 
 Now, letting KeePass generate these for you will bother some people. It does violate one of the intents of MFA, which is to present multiple factors of different kinds - something you know (a password), something you have (a phone that generate TOTP codes, or a hardware security key), something you are (biometric data like a fingerprint or face). By keeping the TOTP key alongside your password in KeePass, you've reduced it to another thing you know. Or is it a thing you have? Because, like, your randomly-generated password isn't really a thing you know, either. It's a thing you have, in your KeePass database.
 
-As you can see, these categories are a bit of a chimera. They are all ultimately data that can be stored and possibly intercepted. TOTP still adds security, because even if your password is somehow intercepted, or stolen from a service provider (which really shouldn't be possible if they're doing things right, but it *happens all the time*), a hacker still won't have the TOTP seed, which never leaves your KeePass database.
+As you can see, these categories are a bit of a chimera. They are all ultimately data that can be stored and possibly intercepted. (This is even true for biometric data.) TOTP still adds security, because even if your password is somehow intercepted, or stolen from a service provider (which really shouldn't be possible if they're doing things right, but it *happens all the time*), a hacker still won't have the TOTP seed, which never leaves your KeePass database.
 
 So, given that I am comfortable with the security offered by the encrypted KeePass database and how I use it, I am OK with having it generate TOTP codes for me. I won't go into the details of how it's done here. It's a little arcane, really. But the [KeePassOTP](https://github.com/Rookiestyle/KeePassOTP) plugin adds some extra UI to make it really easy. Take a look at that site.
 
