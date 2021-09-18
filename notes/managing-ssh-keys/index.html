@@ -13,7 +13,7 @@
 <hr>
 <main>
     <h1>Managing SSH Keys</h1>
-<p>SSH and tools which depend can use it, particularly Git, are much more pleasant and secure to use if you can
+<p>SSH and tools which can use it, particularly Git, are much more pleasant and secure if you can
 arrange to use SSH keys rather than passwords. You can find lots of articles on how to do various parts of
 this. Here I describe my overall approach, and the setup details that make it work.</p>
 <p>I like to avoid generating unique keys for every context.
@@ -25,7 +25,7 @@ work and one for my private projects.</p>
 <li>Arrange for that SSH agent to draw from a common source in all your environments.</li>
 </ol>
 <p>An SSH agent provides a socket that SSH will talk to. Simply setting the environment variable <code>SSH_AUTH_SOCK</code> to point to this socket causes SSH clients to try using it. If they fail to get an SSH key for the connection they're trying to establish, they usually fall back to password prompting.</p>
-<p>The default <code>ssh-agent</code> available on most Linux systems reads the keys from files. But I solve the challenge using <a href="https://keepass.info/">KeePass</a>, and the <a href="https://lechnology.com/software/keeagent/">KeeAgent</a> plugin. Because I already have KeePass set up in a way that lets me share its data file across all the system I use, this avoids copying files around. You can read more about this setup, and other tricks &amp; features of KeePass on <a href="/notes/keepass-password-vault/">my page about how I use it</a>.</p>
+<p>The default <code>ssh-agent</code> available on most Linux systems reads the keys from files. But I solve the challenge using <a href="https://keepass.info/">KeePass</a>, and the <a href="https://lechnology.com/software/keeagent/">KeeAgent</a> plugin. Because I already have KeePass set up in a way that lets me share its data file across all the system I use, this avoids distributing copies of additional files. You can read more about this setup, and other tricks &amp; features of KeePass on <a href="/notes/keepass-password-vault/">my page about how I use it</a>.</p>
 <p>KeeAgent itself is easy to use, so I won't go into details here. Configuring your environments to use it, and matching those needs with KeeAgent's configuration, is a bit complex. Following are details that worked for me on Windows 10. Corrections or updates to this information is welcome!</p>
 <p>Once set up, this works reliably and seamlessly.</p>
 <h2>Git for Windows' SSH</h2>
@@ -37,9 +37,9 @@ Turn on KeeAgent's Cygwin compatible socket, and set <code>SSH_AUTH_SOCK=</code>
 <p>Turn on KeeAgent's Cygwin compatible socket, and set <code>SSH_AUTH_SOCK=</code><em>path-to-your-socket</em>.</p>
 <h2>SSH in WSL2</h2>
 <p>Tested on Windows 10 Pro, version 20H2, OS build 19042.870.</p>
-<p>Turn on KeeAgent's experimental &quot;Windows OpenSSH&quot; feature. This listens on a socket that is supposedly compatible with Microsoft's conventions for OpenSSH. You then need software that runs in WSL2 to pipe requests to that socket. This is done using a combination of socal (which you may have to install first using your package manager) and npiprelay.</p>
+<p>Turn on KeeAgent's experimental &quot;Windows OpenSSH&quot; feature. This listens on a socket that is supposedly compatible with Microsoft's conventions for OpenSSH. You then need software that runs in WSL2 to pipe requests to that socket. This is done using a combination of socal (which you may have to install first using your package manager) and npiperelay.</p>
 <p>See <a href="https://gist.github.com/strarsis/e533f4bca5ae158481bbe53185848d49">this how-to article</a> for details.</p>
-<p>Based on that information, I have things working pretty trouble-free in my environments. I created <a href="https://github.com/dwmuller/dotfiles/blob/main/bin/wsl/wsl-ssh-agent">a Bash script</a> that can help manage the process in WSL2 that does the forwarding.</p>
+<p>Based on that information, I have things working pretty trouble-free in my environments. I created <a href="https://github.com/dwmuller/dotfiles/blob/main/bin/wsl/wsl-ssh-agent">a Bash script</a> that can help manage the process that does the forwarding in WSL2.</p>
 <h2>Making It Easy</h2>
 <p>I have some shell code that gets run on each login in all of the environments I mentioned here, which sets up <code>SSH_AUTH_SOCK</code> appropriately. Look for the mentions of <code>SSH_AUTH_SOCK</code> in <a href="https://github.com/dwmuller/dotfiles/blob/main/shell/external.sh">this file</a>, which gets sourced by my .bashrc script.</p>
 <p>You may also want to consider using <a href="https://github.com/anishathalye/dotbot">Dotbot</a> to manage your dotfiles for all your Linux-like work environments, like my <a href="https://github.com/dwmuller/dotfiles/">dotfiles</a> does.</p>
