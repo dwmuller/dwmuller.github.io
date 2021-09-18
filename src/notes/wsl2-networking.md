@@ -2,7 +2,7 @@
 tags:
     - winconfig
     - wsl
-title: Notes on WSL2 Networking 
+title: WSL2 Networking 
 layout: note.html
 ---
 # {{ title }}
@@ -38,3 +38,14 @@ To test communication in that direction, run the python server on Windows, and t
 If you have problems, try temporarily disabling the firewall. If that works, then look for a specific Block rule that is applicable. While examining rules, note that the virtual network is considered by Windows to be a _Public_ network! This is very surprising, and I've found no way to change that. This makes it harder to craft safe firewall rules involving that network.
 
 Making a port on the WSL2 VM accessible to other computers on the local network [might be a bit more involved](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#accessing-a-wsl-2-distribution-from-your-local-area-network-lan).
+
+== Routing through host VPN ==
+
+If the host is routing through a VPN, networking from a WSL2 VM will fail. Various fixes are discussed online. Here's what worked for me, using NordVPN on the Windows host.
+
+Add or edit the file /etc/wsl.conf in the WSL2 VM's file system. You need a command in the ``[boot]`` section that changes the MTU of the virtual network interface. You'll need to restart the VM after first doing this. Example content:
+```
+[boot]
+# Fix problem with routing through host's VPN. This works for NordVPN in particular.
+command="ip link set dev eth0 mtu 1400"```
+```
