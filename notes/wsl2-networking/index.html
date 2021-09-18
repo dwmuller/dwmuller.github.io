@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Notes on WSL2 Networking</title>
+        <title>WSL2 Networking</title>
         <link rel="stylesheet" href="/styles/style.css" />
     </head>
     <body>
@@ -12,7 +12,7 @@
 </header>
 <hr>
 <main>
-    <h1>Notes on WSL2 Networking</h1>
+    <h1>WSL2 Networking</h1>
 <p>WSL2 uses Hyper-V networking. There's a virtual network connected to a virtual interface
 on the Windows host, and to a virtual interface on the WSL2 virtual machine, each with
 their own distinct IPV4 address drawn from the 172.16.0.0/12 private IPV4 address space.
@@ -34,6 +34,13 @@ captures it by searching for the default route in the output of <code>ip</code>:
 <p>To test communication in that direction, run the python server on Windows, and try to connect to it from WSL2. This will likely fail, because the Windows Python installation creates explicit Block rules in the firewall to prevent connection from Public networks. The only workaround I know is to disable these rules, which is unfortunate. Similar rules often exist for Java (which is relevant if you want to run ZAP, a Java app, on Windows and proxy Linux process through it).</p>
 <p>If you have problems, try temporarily disabling the firewall. If that works, then look for a specific Block rule that is applicable. While examining rules, note that the virtual network is considered by Windows to be a <em>Public</em> network! This is very surprising, and I've found no way to change that. This makes it harder to craft safe firewall rules involving that network.</p>
 <p>Making a port on the WSL2 VM accessible to other computers on the local network <a href="https://docs.microsoft.com/en-us/windows/wsl/compare-versions#accessing-a-wsl-2-distribution-from-your-local-area-network-lan">might be a bit more involved</a>.</p>
+<p>== Routing through host VPN ==</p>
+<p>If the host is routing through a VPN, networking from a WSL2 VM will fail. Various fixes are discussed online. Here's what worked for me, using NordVPN on the Windows host.</p>
+<p>Add or edit the file /etc/wsl.conf in the WSL2 VM's file system. You need a command in the <code>[boot]</code> section that changes the MTU of the virtual network interface. You'll need to restart the VM after first doing this. Example content:</p>
+<pre><code>[boot]
+# Fix problem with routing through host's VPN. This works for NordVPN in particular.
+command=&quot;ip link set dev eth0 mtu 1400&quot;```
+</code></pre>
 
 </main>
         <footer>
