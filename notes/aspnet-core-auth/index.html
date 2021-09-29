@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Asp.Net Core 3 Authentication and Authorization</title>
+        <link rel="stylesheet" href="/styles/style.css" />
+    </head>
+    <body>
+        <header>
+    <div style="float: left"><a href='/'>Home</a></div>
+    <div style="float: right"></div>
+    <div style="margin: 0 auto; width: 20rem;">Muller's Memoranda</div>
+</header>
+<hr>
+<main>
+    <h1>Asp.Net Core 3 Authentication and Authorization</h1>
+<p>** Work in Progress **</p>
+<p>Working with the
+<a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet">ASP.NET</a> Core
+<a href="https://docs.microsoft.com/en-us/aspnet/core/security/?view=aspnetcore-5.0">Authentication (authN) and Authorization
+(authZ)</a>
+system can be frustrating if you're trying to do anything that doesn't closely
+match an available example. There are lots of how-to articles (although beware
+version differences), but precious little digestible writing about how the many
+parts interact, what the various customization points are (other than a few main
+ones), and even less on the philosophies that guided the architecture. I've been
+studying it lately and will try to fill those gaps a little as I learn more.</p>
+<p>I've been trying to do some slightly unusual things within a Web API and its
+associated SPA recently. To get authN and authZ right, I really couldn't follow
+any readily available examples, and I hate just throwing things at the wall to
+see what sticks -- especially when it comes to security. So, because of the
+aforementioned gaps, I had little choice but to delve into the source code.
+That's ultimately very enlightening, and I'm thankful that it's all open source
+now, but it's also very time-consuming.</p>
+<p>Let's talk about what's going on in this code. This will be a mostly bottom-up
+approach. First I'll touch briefly on authN vs authz. Then I'll talk about some
+key data structures, how they are used (authZ), and then how they're produced
+(authN).</p>
+<p>I hope it will give you some mental tools to apply to your own specific
+authN and authZ needs.</p>
+<h2>AuthN vs. AuthZ</h2>
+<p>You can read textbook definitions of authentication vs. authorization in
+numerous places (including Microsoft's ASP.NET security overview referenced
+earlier). In the context of an ASP.NET Web app, more concretely:</p>
+<p>The <strong>authentication</strong> subsystem examines an incoming request for evidence of
+identity, and when found and validated, usually translates it to the bits and
+pieces that make up a <code>ClaimsPrincipal</code>. It also drives reactions to
+authentication failures.</p>
+<p>The <strong>authorization</strong> subsystem applies rules that you define, to determine
+whether the sender of a request has permission to do something, like retrieve or
+modify data. These rules primarily operate on the data in <code>ClaimsPrincipal</code>.</p>
+<p>So, in a sense, this <code>ClaimsPrincipal</code> type is what ties the authN and authZ
+subsystems together. Let's examine it in some detail.</p>
+<h2>Principals, Identities, and Claims</h2>
+<p>A 'principal' refers, in this context, to the sender of a request. It represents
+<em>who</em> that person is (identity) and <em>what</em> we know about him or her (claims).
+It's represented by a <code>ClaimsPrincipal</code> object. During request handling, you
+usually reference this object as the <code>User</code> property of an <code>HttpContext</code>. The
+<code>HttpContext</code> object is usuallly accessible throughout the request processing
+pipeline and related machinery of ASP.NET.</p>
+<p>Because people (or systems) can have different identities in different contexts,
+a <code>ClaimsPrincipal</code> contains multiple <code>ClaimsIdentity</code> objects. Each represents
+an &quot;identity&quot; of the caller. Usually, each <code>ClaimsIdentity</code> object is provided
+by one &quot;authentication scheme&quot;, which we'll define later. You can also create
+and add identity objects yourself. In many systems with simple authentication
+needs, there is only a single identity object in a principal.</p>
+<p>Each <code>ClaimsIdentity</code> object contains a list of <code>Claim</code> objects. A claim can be
+thought of as a fact about the identity, or about the person/system/thing
+represented by the identity. These are organized as keyword/value pairs. The
+string keyword is called the &quot;claim type&quot;, and the value is also a string, which
+can contain just about anything. Note that <code>ClaimsIdentity.Claims</code> is a list,
+not a dictionary. Although most claims are expected to be present just once in
+an identity, it's also possible to have multiple values with the same claim
+type.</p>
+<p>Two common examples of claim types are <em>name</em> and <em>role</em>. The specific claim
+type string used isn't important, but these two concepts are important in some
+contexts. Role-based security, for example, is explicitly supported in the auth
+framework, and a role claim will have as its value a role name, or a list of
+role names. It states that this identity can assume these roles.</p>
+<p>The concept of claims exists in the security world outside of ASP.NET. For
+example, the OAuth 2 and OpenID standards (which deal, respectively, with
+delegation of authorization, and authentication) define some standard claims,
+and some of the available authentication implementations in ASP.NET Core can map
+claims between your desired claim arrangement and systems that implement those
+standards. In your own system, you may make use of those claims, or you may
+define your own claims that come from, say, a user database that you manage.</p>
+<p>By the way, these three types -- <code>ClaimsPrincipal</code>, <code>ClaimsIdentity</code>, and
+<code>Claim</code> -- are defined in the .NET Core runtime. They're more basic than the
+ASP.NET framework for Web applications.</p>
+<p>Next, we'll talk about the authorization subsystem, which is the primary
+consumer of these claims.</p>
+<h2>Authorization</h2>
+<p>At its heart, ASP.NET Core authorization is claims-based. In order to determine
+whether a user has permission to do something or not, you usually look for
+claims in the <code>ClaimsPrincipal</code> associated with a request.</p>
+<p>The machinery for doing this is surprisingly complicated. Let's look at what the
+machinery does, by default, from the top down -- where 'top' here is the
+middleware that you add to the request pipeline by calling UseAuthorization.</p>
+<h3><code>AuthorizationPolicy</code>, <code>IAuthorizationRequirement</code>, and authentication schemes</h3>
+<p>TODO: Explain these low-level data structures.</p>
+<h3><code>AuthorizationMiddleware.Invoke(HttpContext)</code></h3>
+<p>See <a href="https://source.dot.net/#Microsoft.AspNetCore.Authorization.Policy/AuthorizationMiddleware.cs"><code>AuthorizationMiddleware</code></a>.
+See <a href="https://source.dot.net/#Microsoft.AspNetCore.Authorization/AuthorizationPolicy.cs"><code>AuthorizationPolicy</code></a>.</p>
+<ul>
+<li>Endpoint must be known - added to <code>HttpContext</code> by routing middleware earlier in pipeline.</li>
+<li>Gets metadata about the endpoint, an ordered list of <code>IAuthorizeData</code>. (Basically, AuthorizeAttribute objects.)</li>
+<li>Calls static <code>AuthorizationPolicy.CombineAync</code> with the <code>IAuthorizationPolicyProvider</code> and the metadata to get a policy.</li>
+<li>Bails out the policy is null.</li>
+<li>Calls <code>IPolicyEvaluator.AuthenticateAsync</code> with the policy and HttpContext to get an <code>AuthenticateResult</code>. (The policy evaluator object has a &quot;transient&quot; lifetime?)</li>
+<li>Bails out if any of the endpoint metadata is <code>IAllowAnonymous</code>. (Basically, an <code>AllowAnonymousAttribute</code>.)</li>
+<li>Calls <code>IPolicyEvaluator.AuthorizeAsync</code> with the policy, <code>AuthenticateResult</code>, and HttpContext (and maybe the endpoint) to get an <code>AuthorizeResult</code>.</li>
+<li>Calls <code>IAuthorizationMiddlewareResultHandler.HandleAsync</code> with next, HttpContext, policy, and authorizeResult.</li>
+</ul>
+<p><code>CombineAsync</code> basically combines all the applicable <code>AuthorizeAttribute</code>
+objects and the authorization requirements that they specify into one policy,
+represented as an <code>AuthorizationPolicy</code> object. The details of how that's done
+are unimportant, except for one detail which is hard to find in Microsoft
+documentation: All authorization requirements are ANDed. You can have multiple
+Authorize attributes on an endpoint method, and on its containing class, and
+these all end up in the metadata list for the endpoint.</p>
+<p>Customization points:</p>
+<ul>
+<li>IAuthorizationPolicyProvider from DI, defaults to ?</li>
+<li>IPolicyEvaluator from DI, defaults to?</li>
+<li>IAuthorizationMiddlewareResultHandler from DI, defaults to?</li>
+</ul>
+<h2>default AuthenticateAsync</h2>
+<h2>default AuthorizeAsync</h2>
+<h2>default result HandleAsync</h2>
+<p>-&gt; IPolicyEvaluator (transient)
+IAuthorizationService, DefaultAuthorizationService
+IAuthorizationPolicyProvider
+IAuthorizationRequirement - empty interface!
+IAuthorizationHandler, AuthorizationHandler<TReq>
+AuthorizationHandlerContext
+AuthorizationPolicy
+IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider</p>
+<h2>Authentication</h2>
+<h2>TODO</h2>
+<ul>
+<li>Add links to source code</li>
+<li>Be specific about version</li>
+<li>Build out details of authZ more.</li>
+</ul>
+
+</main>
+        <footer>
+        <a href="https://github.com/dwmuller/dwmuller.github.io/blob/main/./src/notes/aspnet-core-auth.md">Edit this page on GitHub</a>
+        </footer>
+    </body>
+</html>
