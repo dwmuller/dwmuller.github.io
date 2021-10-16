@@ -38,7 +38,7 @@ npx @11ty/eleventy --serve
 
 ## Installation
 
-You need Node.js. See (my notes)[nodejs] on installing it.
+You need Node.js. See [my notes](nodejs) on installing it.
 
 Install npm. 
 ```
