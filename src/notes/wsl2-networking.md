@@ -39,7 +39,7 @@ If you have problems, try temporarily disabling the firewall. If that works, the
 
 Making a port on the WSL2 VM accessible to other computers on the local network [might be a bit more involved](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#accessing-a-wsl-2-distribution-from-your-local-area-network-lan).
 
-== Routing through host VPN ==
+## Routing through host VPN
 
 If the host is routing through a VPN, networking from a WSL2 VM will fail. Various fixes are discussed online. Here's what worked for me, using NordVPN on the Windows host.
 
