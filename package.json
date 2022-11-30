@@ -4,8 +4,8 @@
   "description": "Dan Muller's software development notebook.",
   "main": "index.js",
   "scripts": {
-    "build" : "npx @11ty/eleventy",
-    "serve" : "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy",
+    "serve": "npx @11ty/eleventy --serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,6 @@
     "@11ty/eleventy": "^1.0.2"
   },
   "dependencies": {
-    "markdown-it-footnote": "^3.0.2"
+    "markdown-it-footnote": "^3.0.3"
   }
 }

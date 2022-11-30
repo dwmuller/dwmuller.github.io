@@ -18,22 +18,22 @@ There's not much here at the moment, but I'm still migrating notes from other lo
 Notes relevant to building and maintaining this site.
 - [The GitHub repository for this site]({{ repo_site }})
 {%- for post in collections.site-tools %}
-- [{{ post.data.title|urlencode }}]({{ post.url }})
+- [{{ post.data.title|url }}]({{ post.url }})
 {%- endfor %}
 
 ## Tools
 {%- for post in collections.tools %}
-- [{{ post.data.title|urlencode  }}]({{ post.url }})
+- [{{ post.data.title|url  }}]({{ post.url }})
 {%- endfor %}
 
 ## Techniques
 {%- for post in collections.techniques %}
-- [{{ post.data.title|urlencode  }}]({{ post.url }})
+- [{{ post.data.title|url  }}]({{ post.url }})
 {%- endfor %}
 
 ## Windows Configuration
 {%- for post in collections.winconfig %}
-- [{{ post.data.title|urlencode }}]({{ post.url }})
+- [{{ post.data.title|url }}]({{ post.url }})
 {%- endfor %}
 
 ## Misc
