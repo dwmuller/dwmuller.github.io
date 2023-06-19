@@ -14,8 +14,25 @@
 <main>
     <h1>Managing SSH Keys</h1>
 <p>SSH and tools which can use it, particularly Git, are much more pleasant and secure if you can
-arrange to use SSH keys rather than passwords. You can find lots of articles on how to do various parts of
-this. Here I describe my overall approach, and the setup details that make it work.</p>
+arrange to use SSH keys rather than passwords. You can find lots of articles on how to do various parts of this. Here I describe my overall approach, and the setup details that make it work.</p>
+<p>I've changed my approach to this task. You can read about my previous preferences and setup below under &quot;Old Approach&quot;, where I equated an SSH key with personal identity or role. For security and auditability, I've decided that it's preferable to generate an SSH key per client system and keep the private key forever local on that system. This means that I have to live with the inconvenience of installing the public key for each client on each target system. Since I work with only a few target systems, this should be tractable. If the need arises, I will assign a certificate per device and per role (e.g. work/personal).</p>
+<p>Initial setup is much easier with this approach. Each device and each VM is treated as a distinct system with its own SSH key(s). No ssh-agent is needed.</p>
+<p>To create a key on a client, using ECDSA:</p>
+<pre><code>ssh-keygen -t ecdsa -C *identifier*
+</code></pre>
+<p>For the identifier in the comment, I generally use the default (<em>username</em>@<em>hostname</em>), but for WSL I'll use <em>username</em>@<em>distro</em>@<em>windows-hostname</em>, just to keep things sorted out.</p>
+<p>The choice of key type is complicated, but the differences are probably insignificant for most users, as long as the key is of adequate strength (determined by type and length). There are some concerns about a possible U.S. government backdoor in ECDSA, and ED25519 may be too new for some systems to support.</p>
+<h2>Configuring OpenSSH ssh-agent</h2>
+<p>In case an ssh-agent <em>is</em> needed, current versions of Windows come with a version of OpenSSH pre-installed, and this works well enough once configured correctly. There are many articles on how to do this. In broad strokes:</p>
+<ul>
+<li>Make sure that the OpenSSH Authentication Agent service is running. Maybe set it to start automatically, delayed.</li>
+<li>Make sure that SSH_AUTH_SOCK is set to &quot;//./pipe/openssh-ssh-agent&quot; globally.</li>
+</ul>
+<p>For some reason when I first tried this, the environment variable was set to an incorrect value, possibly by an installation package. (Maybe Git?)</p>
+<h2>Installing/configuring Git for Windows to use ssh-agent</h2>
+<p>There are few ways to make Git for Windows work with OpenSSH. If you're installing it with Chocolatey, the easiest way is to provide the package parameter /NoOpenSSH to prevent it from installing its own version. (I also like the /GitAndUnixToolsOnPath parameter.)</p>
+<p>An alternative is to use the OpenSSH version included with Git for Windows instead of Windows' pre-installed version, but at present that's not compatible with at least one program I'm using (KeePassXC).</p>
+<h2>Old Approach</h2>
 <p>I like to avoid generating unique keys for every context.
 But I do like to have a distinct SSH certificate for each role that I play, so I typically have one for
 work and one for my private projects.</p>
@@ -28,24 +45,24 @@ work and one for my private projects.</p>
 <p>The default <code>ssh-agent</code> available on most Linux systems reads the keys from files. But I solve the challenge using <a href="https://keepass.info/">KeePass</a>, and the <a href="https://lechnology.com/software/keeagent/">KeeAgent</a> plugin. Because I already have KeePass set up in a way that lets me share its data file across all the system I use, this avoids distributing copies of additional files. You can read more about this setup, and other tricks &amp; features of KeePass on <a href="/notes/keepass-password-vault/">my page about how I use it</a>.</p>
 <p>KeeAgent itself is easy to use, so I won't go into details here. Configuring your environments to use it, and matching those needs with KeeAgent's configuration, is a bit complex. Following are details that worked for me on Windows 10. Corrections or updates to this information is welcome!</p>
 <p>Once set up, this works reliably and seamlessly.</p>
-<h2>Git for Windows' SSH</h2>
+<h3>Git for Windows' SSH</h3>
 <p>Tested on version 2.30.2.
 Turn on KeeAgent's Cygwin compatible socket, and set <code>SSH_AUTH_SOCK=</code><em>path-to-your-socket</em>.</p>
-<h2>OpenSSH on Windows</h2>
+<h3>OpenSSH on Windows</h3>
 <p>Tested on version 8.4.2.1, installed by Chocolatey as package mls-software-openss.</p>
 <p>Note that the built-in OpenSSH software in Windows 10 is badly out of date, and I couldn't get it to work with KeeAgent.</p>
 <p>Turn on KeeAgent's Cygwin compatible socket, and set <code>SSH_AUTH_SOCK=</code><em>path-to-your-socket</em>.</p>
-<h2>SSH in WSL2</h2>
+<h3>SSH in WSL2</h3>
 <p>Tested on Windows 10 Pro, version 20H2, OS build 19042.870.</p>
 <p>Turn on KeeAgent's experimental &quot;Windows OpenSSH&quot; feature. This listens on a socket that is supposedly compatible with Microsoft's conventions for OpenSSH. You then need software that runs in WSL2 to pipe requests to that socket. This is done using a combination of socal (which you may have to install first using your package manager) and npiperelay.</p>
 <p>See <a href="https://gist.github.com/strarsis/e533f4bca5ae158481bbe53185848d49">this how-to article</a> for details.</p>
 <p>Based on that information, I have things working pretty trouble-free in my environments. I created <a href="https://github.com/dwmuller/dotfiles/blob/main/bin/wsl/wsl-ssh-agent">a Bash script</a> that can help manage the process that does the forwarding in WSL2.</p>
-<h2>Making It Easy</h2>
+<h3>Making It Easy</h3>
 <p>I have some shell code that gets run on each login in all of the environments I mentioned here, which sets up <code>SSH_AUTH_SOCK</code> appropriately. Look for the mentions of <code>SSH_AUTH_SOCK</code> in <a href="https://github.com/dwmuller/dotfiles/blob/main/shell/external.sh">this file</a>, which gets sourced by my .bashrc script.</p>
 <p>You may also want to consider using <a href="https://github.com/anishathalye/dotbot">Dotbot</a> to manage your dotfiles for all your Linux-like work environments, like my <a href="https://github.com/dwmuller/dotfiles/">dotfiles</a> does.</p>
 <p>Here's an example of what the KeeAgent configuration should look like:</p>
 <p><img src="/assets/keeagent-settings.png" alt="KeeAgent settings"></p>
-<h2>Miscellany</h2>
+<h3>Miscellany</h3>
 <p>I tried, and failed, to get the &quot;official&quot; Microsoft <code>win32-openssh</code> chocolatey package to work with KeeAgent. This may have been my fault, I don't know.</p>
 <p>I described above how to get this to work with WSL2. If you use WSL1, a different solution, which I have not tested, is required. See <a href="https://github.com/rupor-github/wsl-ssh-agent">wsl-ssh-agent</a>.</p>
 
